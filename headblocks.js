@@ -1,0 +1,1 @@
+module.exports={eth:24062072,avalon:21405883}
