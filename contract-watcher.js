@@ -701,13 +701,14 @@ class ContractWatcher {
                 topics: [config.topic]
             })
         } catch (e) {
-            return console.log('Err BSC logs',e.toString())
+            console.log('Err BSC logs',e.toString())
+            return setTimeout(() => WDTCWatcher.checkBlock(number), delay)
         }
         // console.log('Logs for block #'+number+' to #'+destinationHeight,logs)
         headblocks.eth = destinationHeight
         fs.writeFileSync('./headblocks.js', "module.exports={eth:"+headblocks.eth+",avalon:"+headblocks.avalon+"}") 
         if (!logs)
-            return   
+            return setTimeout(() => WDTCWatcher.checkBlock(number), delay)
         for (let i = 0; i < logs.length; i++) {
             try {
                 tx = await web3.eth.getTransaction(logs[i].transactionHash)
