@@ -690,7 +690,7 @@ class ContractWatcher {
         let destinationHeight = Math.min(currentHeight,number+maxLogsBlocks)
         console.log('Fetch BSC logs from '+number+' to '+destinationHeight, 'current height:',currentHeight)
         
-        this.verifyTxStatus(number)
+        this.verifyTxStatuses(number,destinationHeight)
 
         let logs, tx
         try {
@@ -742,6 +742,7 @@ class ContractWatcher {
     }
 
     verifyTxStatuses(start,end) {
+        if (end < start) return
         for (let i = start; i <= end; i++)
             this.verifyTxStatus(i)
     }
