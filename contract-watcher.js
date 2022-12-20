@@ -767,7 +767,7 @@ class ContractWatcher {
                     }
                     newTx = javalon.signMultisig([config.avalonSwapKey], config.avalonSwapAccount, newTx)
                     javalon.sendTransaction(newTx, function(err, res) {
-                        console.log('Sent '+newTx.data.amount+' DTC to '+newTx.data.receiver)
+                        console.log('Sent '+newTx.data.amount+' centiDTUBE to '+newTx.data.receiver)
                         console.log(err, res)
                     })
                 }
