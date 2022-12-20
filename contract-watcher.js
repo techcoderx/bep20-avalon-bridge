@@ -701,7 +701,7 @@ class ContractWatcher {
                 topics: [config.topic]
             })
         } catch (e) {
-            console.log('Err BSC logs',e.toString())
+            return console.log('Err BSC logs',e.toString())
         }
         // console.log('Logs for block #'+number+' to #'+destinationHeight,logs)
         headblocks.eth = destinationHeight
@@ -713,6 +713,7 @@ class ContractWatcher {
                 tx = await web3.eth.getTransaction(logs[i].transactionHash)
             } catch (e) {
                 console.log('Err BSC getTx',logs[i].transactionHash,e.toString())
+                continue
             }
             if (tx && tx.to && watchingAddress == tx.to.toLowerCase()) {
                 let decodedTx = decoder.decodeData(tx.input)
@@ -762,7 +763,7 @@ class ContractWatcher {
                             memo: hash
                         }
                     }
-                    newTx = javalon.sign(config.avalonSwapKey, config.avalonSwapAccount, newTx)
+                    newTx = javalon.signMultisig([config.avalonSwapKey], config.avalonSwapAccount, newTx)
                     javalon.sendTransaction(newTx, function(err, res) {
                         console.log('Sent '+newTx.data.amount+' DTC to '+newTx.data.receiver)
                         console.log(err, res)
