@@ -687,6 +687,10 @@ class ContractWatcher {
             console.log('BSC getBlockNumber error',e.toString())
             return setTimeout(() => WDTCWatcher.checkBlock(number), delay)
         }
+        if (currentHeight < number) {
+            console.log('currentHeight #'+currentHeight+' less than last replayed height #'+number+', skipping')
+            return setTimeout(() => WDTCWatcher.checkBlock(number), delay)
+        }
         let destinationHeight = Math.min(currentHeight,number+maxLogsBlocks)
         console.log('Fetch BSC logs from '+number+' to '+destinationHeight, 'current height:',currentHeight)
         
